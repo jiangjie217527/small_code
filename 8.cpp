@@ -43,10 +43,8 @@ void add_float(char* a, char* b, char* res) {
 	for(int cnt=0;cnt<lenb;cnt++,leny++){
 		y[leny]=b[cnt];
 	}
-	cout<<x<<endl<<y<<endl;;
-	int ed = lenx-1;
 	int carry=0;
-	for(int ed = lenx - 1;ed>=0;ed--){
+	for(int ed = max(lenx-1,leny-1);ed>=0;ed--){
 		if(x[ed]=='.'){
 			z[ed] ='.';
 			continue;
@@ -54,13 +52,9 @@ void add_float(char* a, char* b, char* res) {
 		z[ed] = (get_digit(x[ed])+get_digit(y[ed])+carry)%10 + '0';
 		carry = (get_digit(x[ed])+get_digit(y[ed])+carry)/10;
 	}
-	cout<<z<<endl;
-	int l = 0;
-	if(z[0]=='0')l=1;
-	int r = lenx-1;
-	while(z[r] == '0'){
-		r--;
-	}
+	int l = 0,r = max(lenx-1,leny-1);
+	while(z[l] == '0')l++;
+	while(z[r] == '0')r--;
 	for(int i=l;i<=r;i++){
 		res[i-l]=z[i];
 	}
